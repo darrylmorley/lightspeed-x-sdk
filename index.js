@@ -212,9 +212,37 @@ class LightspeedRetailSDK {
     }
   }
 
+  async getManufacturer(manufacturerID) {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Manufacturer/${manufacturerID}.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
+  }
+
   async getOrders() {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Order.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
+  }
+
+  async getOrder(orderID) {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Order/${orderID}.json`,
       method: "GET",
     };
 
@@ -240,9 +268,37 @@ class LightspeedRetailSDK {
     }
   }
 
+  async getVendor(vendorID) {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Vendor/${vendorID}.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
+  }
+
   async getSales() {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Sale.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
+  }
+
+  async getSale(saleID) {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Sale/${saleID}.json`,
       method: "GET",
     };
 
