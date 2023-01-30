@@ -227,4 +227,4 @@ class LightspeedRetailSDK {
   }
 }
 
-export default LightspeedRetail;
+export default LightspeedRetailSDK;
