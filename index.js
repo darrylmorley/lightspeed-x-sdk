@@ -16,7 +16,7 @@ const getRequestUnits = (operation) => {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-class LightspeedRetail {
+class LightspeedRetailSDK {
   constructor(opts) {
     const { clientID, clientSecret, refreshToken, accountID } = opts;
 
