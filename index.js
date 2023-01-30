@@ -21,10 +21,10 @@ class LightspeedRetail {
     const { clientID, clientSecret, refreshToken, accountID } = opts;
 
     this.clientID = clientID;
-    this.clientsecret = clientSecret;
+    this.clientSecret = clientSecret;
     this.refreshToken = refreshToken;
     this.accountID = accountID;
-    this.baseUrl = "https://api.lightspeedapp.com/API/V3/Account/";
+    this.baseUrl = "https://api.lightspeedapp.com/API/V3/Account";
     this.maxRetries = 3;
     this.lastResponse = null;
   }
@@ -59,41 +59,39 @@ class LightspeedRetail {
   };
 
   getToken = async () => {
-    const url = `https://cloud.lightspeedapp.com/oauth/access_token.php`;
-
     const body = {
       grant_type: "refresh_token",
       client_id: this.clientID,
-      client_secret: this.clientsecret,
+      client_secret: this.clientSecret,
       refresh_token: this.refreshToken,
     };
 
-    try {
-      const res = await axios({
-        url,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: JSON.stringify(body),
-      });
-      console.log(res.data.access_token);
-      return res.data.access_token;
-    } catch (err) {
-      return this.handleError("GET TOKEN", err);
-    }
+    const response = await axios({
+      url: "https://cloud.lightspeedapp.com/oauth/access_token.php",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(body),
+    }).catch((error) => console.error(error.response.data));
+
+    const tokenData = await response.data;
+    const token = tokenData.access_token;
+
+    return token;
   };
 
-  getResource = async (options, url, retries = 0) => {
+  getResource = async (options, retries = 0) => {
     this.handleRateLimit(options);
 
     const token = await this.getToken();
 
-    console.log(token);
-
     if (!token) throw new Error("Error Fetching Token");
 
-    options.headers = { Authorization: `Bearer ${token}` };
+    options.headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
 
     try {
       const res = await axios(options);
@@ -116,27 +114,116 @@ class LightspeedRetail {
     }
   };
 
-  async getAllData(url) {
+  async getAllData(options) {
     let allData = [];
-    while (url) {
-      const { data, next } = await this.getResource(url);
-      allData = allData.concat(data);
-      url = next;
+    while (options.url) {
+      const { data } = await this.getResource(options);
+      let next = data["@attributes"].next;
+      let selectDataArray = Object.keys(data)[1];
+      let selectedData = data[selectDataArray];
+      allData = allData.concat(selectedData);
+      options.url = next;
     }
+    console.log(allData);
     return allData;
   }
 
   async getCustomers() {
-    const url = `${this.baseUrl}/Customer.json`;
-    return this.getAllData(url);
-  }
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Customer.json`,
+      method: "GET",
+    };
 
-  async getInvoices() {
-    return await this.getAllData(`${this.baseUrl}/Sale.json`);
+    try {
+      const response = await this.getAllData(options);
+      return response.data;
+    } catch (error) {
+      return this.handleError("GET CUSTOMERS ERROR", error.response);
+    }
   }
 
   async getItems() {
-    return await this.getAllData(`${this.baseUrl}/Item.json`);
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Item.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response.data;
+    } catch (error) {
+      return this.handleError("GET ITEMS ERROR", error.response);
+    }
+  }
+
+  async getCategories() {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Category.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response.data;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
+  }
+
+  async getManufacturers() {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Category.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response.data;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
+  }
+
+  async getOrders() {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Order.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response.data;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
+  }
+
+  async getVendors() {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Vendor.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response.data;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
+  }
+
+  async getSales() {
+    const options = {
+      url: `${this.baseUrl}/${this.accountID}/Sale.json`,
+      method: "GET",
+    };
+
+    try {
+      const response = await this.getAllData(options);
+      return response.data;
+    } catch (error) {
+      return this.handleError("GET CATEGORIES ERROR", error.response);
+    }
   }
 }
 
