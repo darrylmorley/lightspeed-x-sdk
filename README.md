@@ -13,4 +13,7 @@ const api = new LightspeedRetailSDK({
   clientSecret: "Your client secret.",
   refreshToken: "Your refresh token.",
 });
+
+const item = await api.getItem(7947, '["Category", "Images"]');
+console.log(item);
 ```

@@ -128,11 +128,13 @@ class LightspeedRetailSDK {
     return allData;
   }
 
-  async getCustomers() {
+  async getCustomers(relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Customer.json`,
       method: "GET",
     };
+
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
 
     try {
       const response = await this.getAllData(options);
@@ -142,11 +144,13 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getItems() {
+  async getItems(relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Item.json`,
       method: "GET",
     };
+
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
 
     try {
       const response = await this.getAllData(options);
@@ -156,12 +160,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getItem(itemID) {
+  async getItem(itemID, relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Item/${itemID}.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -170,11 +176,13 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getCategories() {
+  async getCategories(relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Category.json`,
       method: "GET",
     };
+
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
 
     try {
       const response = await this.getAllData(options);
@@ -184,12 +192,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getCategory(categoryID) {
+  async getCategory(categoryID, relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Category/${categoryID}.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -198,12 +208,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getManufacturers() {
+  async getManufacturers(relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Category.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -212,12 +224,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getManufacturer(manufacturerID) {
+  async getManufacturer(manufacturerID, relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Manufacturer/${manufacturerID}.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -226,12 +240,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getOrders() {
+  async getOrders(relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Order.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -240,12 +256,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getOrder(orderID) {
+  async getOrder(orderID, relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Order/${orderID}.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -254,12 +272,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getVendors() {
+  async getVendors(relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Vendor.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -268,12 +288,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getVendor(vendorID) {
+  async getVendor(vendorID, relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Vendor/${vendorID}.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -282,12 +304,14 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getSales() {
+  async getSales(relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Sale.json`,
       method: "GET",
     };
 
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
+
     try {
       const response = await this.getAllData(options);
       return response;
@@ -296,11 +320,13 @@ class LightspeedRetailSDK {
     }
   }
 
-  async getSale(saleID) {
+  async getSale(saleID, relations) {
     const options = {
       url: `${this.baseUrl}/${this.accountID}/Sale/${saleID}.json`,
       method: "GET",
     };
+
+    if (relations) options.url = options.url + `?load_relations=${relations}`;
 
     try {
       const response = await this.getAllData(options);
