@@ -9,5 +9,10 @@ import Vend from "./index.js";
 
 const api = new Vend("domain", access_token);
 
+<!-- GET Example -->
 const products = await api.get("/products");
+
+<!-- POST Example -->
+const brand = "MY BRAND";
+api.post("/brands", { name: brand });
 ```
