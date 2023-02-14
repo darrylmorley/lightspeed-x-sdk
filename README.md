@@ -2,6 +2,8 @@
 
 ## Work In Progress
 
+Implemented GET and POST methods with pagination and rate limiting.
+
 ```
 import Vend from "./index.js";
 
